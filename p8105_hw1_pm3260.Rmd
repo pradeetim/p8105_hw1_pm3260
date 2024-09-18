@@ -16,10 +16,10 @@ data("penguins", package = "palmerpenguins")
 
 ### Description of penguins data set.
 
-The data set contains `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+**The data set contains `r nrow(penguins)` rows and `r ncol(penguins)` columns.**
 
-The penguin data set contains these variables: 
-`r paste(names(penguins), collapse = ", ")`. 
+**The penguin data set contains these variables: **
+**`r paste(names(penguins), collapse = ", ")`.**
 
 The years of observation are 
 `r min(penguins$year, na.rm = TRUE)`-`r max(penguins$year, na.rm = TRUE)`.
@@ -35,7 +35,7 @@ and `r table(penguins$sex)["female"]` females
 
 The mean bill length is `r mean(penguins$bill_length_mm, na.rm = TRUE)`,
 the mean bill depth is `r mean(penguins$bill_depth_mm, na.rm = TRUE)`,
-and the mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`.
+and **the mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`**.
 
 The body mass (in grams), ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` 
 to `r max(penguins$body_mass_g, na.rm = TRUE)` grams.
@@ -51,7 +51,49 @@ ggplot(data = penguins,
   labs(title = "Scatterplot of Flipper Length vs Bill Length",
        x = "Bill Length (mm)",
        y = "Flipper Length (mm)")
+
 ggsave("penguin_scatterplot.pdf", width = 8, height = 5)
 ```
+
+# Problem 2
+
+#### Loading in tidyverse:
+
+```{r setup}
+library(tidyverse)
+```
+
+#### Creating the data set with random samples and vectors: 
+
+```{r df_create}
+set.seed(123)
+
+p2_df=tibble(
+  x = rnorm(10),
+  vec_logical = x > 0,
+  vec_char = sample(letters, 10, replace=TRUE),
+  vec_factor = factor(
+    sample(
+      c("Level1", "Level2", "Level3"), 10, replace = TRUE))
+)
+
+print(p2_df)
+```
+
+#### Trying to explore the means of the variables:
+
+```{r means_calc}
+mean(pull(p2_df, var=x))
+mean(pull(p2_df, var=vec_logical))
+mean(pull(p2_df, var=vec_char))
+mean(pull(p2_df, var=vec_factor))
+```
+
+When taking the mean of the variables in the data set,
+we get 0.075 as the mean for x and 0.5 for vec_logical 
+(could be because 50% are true and 50% are false). 
+However, when trying to get the mean for vec_char and vec_factor, 
+we get a warning message that the argument is not numeric or logical.
+
 
 
