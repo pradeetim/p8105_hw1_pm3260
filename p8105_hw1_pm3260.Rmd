@@ -1,5 +1,5 @@
 ---
-title: "p8105_hw1_pm3260"
+title: "Homework 1"
 author: "Pradeeti Mainali"
 date: "2024-09-18"
 output: github_document
@@ -13,4 +13,31 @@ Installed palmerpenguins in the console.
 # Loading the penguins data set:
 data("penguins", package = "palmerpenguins")
 ```
+
+### Description of penguins data set.
+
+The data set contains `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+
+The penguin data set contains these variables: 
+`r paste(names(penguins), collapse = ", ")`. 
+
+The years of observation are 
+`r min(penguins$year, na.rm = TRUE)`-`r max(penguins$year, na.rm = TRUE)`.
+and the species include: 
+`r paste(unique(penguins$species), collapse = ", ")`.
+
+Islands include: 
+`r paste(unique(penguins$island), collapse = ", ")`.
+
+
+There are `r table(penguins$sex)["male"]` males 
+and `r table(penguins$sex)["female"]` females
+
+The mean bill length is `r mean(penguins$bill_length_mm, na.rm = TRUE)`,
+the mean bill depth is `r mean(penguins$bill_depth_mm, na.rm = TRUE)`,
+and the mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`.
+
+The body mass (in grams), ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` 
+to `r max(penguins$body_mass_g, na.rm = TRUE)` grams.
+
 
