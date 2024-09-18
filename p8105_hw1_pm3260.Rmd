@@ -5,3 +5,12 @@ date: "2024-09-18"
 output: github_document
 ---
 
+# Problem 1
+
+Installed palmerpenguins in the console.
+
+```{r}
+# Loading the penguins data set:
+data("penguins", package = "palmerpenguins")
+```
+
