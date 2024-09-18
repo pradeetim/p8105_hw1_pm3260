@@ -59,7 +59,7 @@ ggsave("penguin_scatterplot.pdf", width = 8, height = 5)
 
 #### Loading in tidyverse:
 
-```{r setup}
+```{r setup, message = FALSE}
 library(tidyverse)
 ```
 
@@ -82,10 +82,14 @@ print(p2_df)
 
 #### Trying to explore the means of the variables:
 
-```{r means_calc}
+```{r means_calc, warning = FALSE}
+
 mean(pull(p2_df, var=x))
+
 mean(pull(p2_df, var=vec_logical))
+
 mean(pull(p2_df, var=vec_char))
+
 mean(pull(p2_df, var=vec_factor))
 ```
 
@@ -95,5 +99,25 @@ we get 0.075 as the mean for x and 0.5 for vec_logical
 However, when trying to get the mean for vec_char and vec_factor, 
 we get a warning message that the argument is not numeric or logical.
 
+#### Trying the as numeric function
 
+```{r numeric, warning = FALSE, results='hide'}
+
+as.numeric(pull(p2_df, var=vec_logical))
+
+as.numeric(pull(p2_df, var=vec_char))
+
+as.numeric(pull(p2_df, var=vec_factor))
+   
+```
+
+What happened when as.numeric was used:
+
+* vec_logical: converted FALSE to 0 and TRUE to 1. R treated the logical value as binary data. 
+
+* vec_char output NA's. Character were not / could not be converted to numbers since they were random characters, not binary, and did not represent any 'levels'
+
+* vec_factor output numbers corresponding to the 'level' assigned to each observation. 
+
+This helps understand what happens when we tried to take the mean of these variables. For the logical vector, the mean gave a proportion of TRUE values. For character and factor vector, it was unable to calculate the mean because of its original non-integer characteristic.
 
