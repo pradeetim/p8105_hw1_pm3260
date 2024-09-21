@@ -77,10 +77,10 @@ library(tidyverse)
 ```{r df_create}
 set.seed(123)
 
-p2_df=tibble(
+p2_df = tibble(
   x = rnorm(10),
   vec_logical = x > 0,
-  vec_char = sample(letters, 10, replace=TRUE),
+  vec_char = sample(letters, 10, replace = TRUE),
   vec_factor = factor(
     sample(
       c("Level1", "Level2", "Level3"), 10, replace = TRUE))
@@ -93,13 +93,13 @@ print(p2_df)
 
 ```{r means_calc, warning = FALSE}
 
-mean(pull(p2_df, var=x))
+mean(pull(p2_df, var = x))
 
-mean(pull(p2_df, var=vec_logical))
+mean(pull(p2_df, var = vec_logical))
 
-mean(pull(p2_df, var=vec_char))
+mean(pull(p2_df, var = vec_char))
 
-mean(pull(p2_df, var=vec_factor))
+mean(pull(p2_df, var = vec_factor))
 ```
 
 When taking the mean of the variables in the data set,
@@ -110,13 +110,13 @@ we get a warning message that the argument is not numeric or logical.
 
 #### Trying the as numeric function
 
-```{r numeric, warning = FALSE, results='hide'}
+```{r numeric, warning = FALSE, results = 'hide'}
 
-as.numeric(pull(p2_df, var=vec_logical))
+as.numeric(pull(p2_df, var = vec_logical))
 
-as.numeric(pull(p2_df, var=vec_char))
+as.numeric(pull(p2_df, var = vec_char))
 
-as.numeric(pull(p2_df, var=vec_factor))
+as.numeric(pull(p2_df, var = vec_factor))
    
 ```
 
