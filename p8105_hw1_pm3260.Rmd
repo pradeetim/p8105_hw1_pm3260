@@ -9,36 +9,42 @@ output: github_document
 
 Installed palmerpenguins in the console.
 
-```{r}
+```{r penguins}
 # Loading the penguins data set:
 data("penguins", package = "palmerpenguins")
+```
+
+```{r tidyverse, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE}
+library(tidyverse)
 ```
 
 ### Description of penguins data set.
 
 **The data set contains `r nrow(penguins)` rows and `r ncol(penguins)` columns.**
 
-**The penguin data set contains these variables: **
+The penguin data set contains these variables:
 **`r paste(names(penguins), collapse = ", ")`.**
 
 The years of observation are 
-`r min(penguins$year, na.rm = TRUE)`-`r max(penguins$year, na.rm = TRUE)`.
-and the species include: 
-`r paste(unique(penguins$species), collapse = ", ")`.
+`r min(pull(penguins, year), na.rm = TRUE)` 
+- `r max(pull(penguins, year), na.rm = TRUE)`.
+
+The species include: 
+`r paste(unique(pull(penguins, species)), collapse = ", ")`.
 
 Islands include: 
-`r paste(unique(penguins$island), collapse = ", ")`.
+`r paste(unique(pull(penguins, island)), collapse = ", ")`.
 
+There are `r table(pull(penguins, sex))["male"]` males 
+and `r table(pull(penguins, sex))["female"]` females
 
-There are `r table(penguins$sex)["male"]` males 
-and `r table(penguins$sex)["female"]` females
+The mean bill length is `r mean(pull(penguins, bill_length_mm), na.rm = TRUE)`,
+the mean bill depth is `r mean(pull(penguins, bill_depth_mm), na.rm = TRUE)`,
+and **the mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`**.
 
-The mean bill length is `r mean(penguins$bill_length_mm, na.rm = TRUE)`,
-the mean bill depth is `r mean(penguins$bill_depth_mm, na.rm = TRUE)`,
-and **the mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`**.
-
-The body mass (in grams), ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` 
-to `r max(penguins$body_mass_g, na.rm = TRUE)` grams.
+The body mass (in grams), ranging from 
+`r min(pull(penguins, body_mass_g), na.rm = TRUE)` 
+to `r max(pull(penguins, body_mass_g), na.rm = TRUE)` grams.
 
 ### Scatterplot of Flipper Length vs Bill Length
 
@@ -46,11 +52,14 @@ to `r max(penguins$body_mass_g, na.rm = TRUE)` grams.
 library(ggplot2)
 
 ggplot(data = penguins, 
-  aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  aes(
+    x = bill_length_mm, 
+    y = flipper_length_mm, 
+    color = species)) +
   geom_point() +
   labs(title = "Scatterplot of Flipper Length vs Bill Length",
-       x = "Bill Length (mm)",
-       y = "Flipper Length (mm)")
+    x = "Bill Length (mm)",
+    y = "Flipper Length (mm)")
 
 ggsave("penguin_scatterplot.pdf", width = 8, height = 5)
 ```
